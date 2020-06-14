@@ -1,9 +1,10 @@
-import React, {useEffect, useCallback, useState} from 'react';
-import axios from "axios";
+import React, {useEffect} from 'react';
 import {Table} from "antd";
+import {useDispatch, useSelector} from "react-redux";
+import {loadOperations} from "../../redux/operationsReducer";
 
 const locale = {
-    emptyText: 'Нет данных',
+    emptyText: 'Нет данных по лотам',
 };
 
 const columns = [
@@ -18,26 +19,16 @@ const columns = [
 
 
 const ExpandedRow = ({record}) => {
-    const [operations, setOperation] = useState([]);
-    const loadPortfolio = useCallback(async () => {
-        const request = await axios.get('/openapi-proxy.php', {
-            params: {
-                path: '/operations',
-                from: '2010-08-19T18:38:33.131642+03:00',
-                to: '2020-08-19T18:38:33.131642+03:00',
-                figi: record.figi
-            }
-        });
-
-        if (request.data.status === 'Ok') {
-            setOperation(request.data.payload.operations);
-        }
-    }, []);
+    const dispatch = useDispatch();
+    const operations = useSelector((state) => state.operations);
 
     useEffect(() => {
-        loadPortfolio();
-    }, [loadPortfolio]);
-
+        dispatch(loadOperations({
+            from: '2010-08-19T18:38:33.131642+03:00',
+            to: '2020-08-19T18:38:33.131642+03:00',
+            figi: record.figi,
+        }));
+    }, []);
 
     return (
         <div>

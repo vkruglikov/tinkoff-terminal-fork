@@ -1,6 +1,9 @@
 import React from 'react';
 import {Layout} from 'antd';
+import {Provider} from "react-redux";
+
 import Dashboard from "./Dashboard";
+import store from "./redux/store";
 
 import 'antd/dist/antd.css';
 import './styles.module.css';
@@ -13,7 +16,9 @@ function App() {
         <Layout>
             <Header>&nbsp;</Header>
             <Content>
-                <Dashboard/>
+                <Provider store={store}>
+                    <Dashboard/>
+                </Provider>
             </Content>
             <Footer>&nbsp;</Footer>
         </Layout>

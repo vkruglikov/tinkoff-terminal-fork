@@ -1,8 +1,9 @@
-import axios from 'axios';
-import React, {useCallback, useEffect, useState, useMemo} from "react";
 import {Table} from 'antd';
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
 import ExpandedRow from "./ExpandedRow";
+import {loadPortfolio} from "../../redux/portfolioReducer";
 
 const locale = {
     emptyText: 'Нет данных',
@@ -47,31 +48,12 @@ const columns = [
 
 
 const Portfolio = () => {
-    const [positions, setPositions] = useState([]);
-    const loadPortfolio = useCallback(async () => {
-        const request = await axios.get('/openapi-proxy.php?path=/portfolio');
-
-        if (request.data.status === 'Ok') {
-            setPositions(request.data.payload.positions);
-        }
-    }, []);
+    const dispatch = useDispatch();
+    const positions = useSelector((state) => state.portfolio.positions);
 
     useEffect(() => {
-        loadPortfolio();
-    }, [loadPortfolio]);
-
-    const enhancedPositions = useMemo(() => positions.map((items) => {
-        const blocked = items.blocked || 0;
-        const available = items.balance - blocked;
-        const cost = items.balance * items.averagePositionPrice.value + items.expectedYield.value;
-
-        return {
-            ...items,
-            blocked,
-            available,
-            cost
-        }
-    }), [positions]);
+        dispatch(loadPortfolio());
+    }, []);
 
     return (
         <div>
@@ -80,10 +62,10 @@ const Portfolio = () => {
                     expandedRowRender: record => <ExpandedRow record={record}/>,
                 }}
                 pagination={false}
-                rowKey={'figi'}
                 columns={columns}
-                dataSource={enhancedPositions}
+                dataSource={positions}
                 locale={locale}
+                rowKey="figi"
                 size="small"
             />
         </div>
