@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - 83:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+  stream:
+    image: node:10
+    user: node
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./stream:/home/node/app
+    ports:
+      - 8080:8080
+    command: "npm start"

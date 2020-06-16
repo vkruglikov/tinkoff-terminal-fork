@@ -1,0 +1,16 @@
+{
+  "name": "terminal_ws",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r esm index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tinkoff/invest-openapi-js-sdk": "^1.2.12",
+    "esm": "^3.2.25",
+    "websocket": "^1.0.31"
+  }
+}

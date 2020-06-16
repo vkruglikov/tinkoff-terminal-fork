@@ -3,11 +3,8 @@ import axios from "axios";
 const defaultState = [];
 
 export const loadOperations = (params) => async (dispatch) => {
-    const request = await axios.get('/openapi-proxy.php', {
-        params: {
-            path: '/operations',
-            ...params,
-        }
+    const request = await axios.get('/openapi/operations', {
+        params
     });
 
     if (request.data.status === 'Ok') {

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Layout} from 'antd';
 import {Provider} from "react-redux";
 
+import TerminalWSClient from "./terminalWsClient";
 import Dashboard from "./Dashboard";
 import store from "./redux/store";
 
@@ -12,6 +13,14 @@ const {Header, Footer, Content} = Layout;
 
 
 function App() {
+    useEffect(() => {
+        const client = new TerminalWSClient();
+
+        return () => {
+            client.close();
+        }
+    }, []);
+
     return (
         <Layout>
             <Header>&nbsp;</Header>

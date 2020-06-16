@@ -59,7 +59,7 @@ const Portfolio = () => {
         <div>
             <Table
                 expandable={{
-                    expandedRowRender: record => <ExpandedRow record={record}/>,
+                    // expandedRowRender: record => <ExpandedRow record={record}/>,
                 }}
                 pagination={false}
                 columns={columns}

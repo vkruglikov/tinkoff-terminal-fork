@@ -5,7 +5,7 @@ const defaultState = {
 };
 
 export const loadPortfolio = () => async (dispatch) => {
-    const request = await axios.get('/openapi-proxy.php?path=/portfolio');
+    const request = await axios.get('/openapi/portfolio');
 
     if (request.data.status === 'Ok') {
         dispatch({
