@@ -1,0 +1,5 @@
+.dashboardItem {
+    background: #ffffff;
+    overflow: hidden;
+    overflow-y: auto;
+}

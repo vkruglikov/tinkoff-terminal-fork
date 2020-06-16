@@ -2,7 +2,6 @@ import {Table} from 'antd';
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import ExpandedRow from "./ExpandedRow";
 import {loadPortfolio} from "../../redux/portfolioReducer";
 
 const locale = {
@@ -53,10 +52,10 @@ const Portfolio = () => {
 
     useEffect(() => {
         dispatch(loadPortfolio());
-    }, []);
+    }, [dispatch]);
 
     return (
-        <div>
+        <>
             <Table
                 expandable={{
                     // expandedRowRender: record => <ExpandedRow record={record}/>,
@@ -68,7 +67,7 @@ const Portfolio = () => {
                 rowKey="figi"
                 size="small"
             />
-        </div>
+        </>
     );
 };
 
